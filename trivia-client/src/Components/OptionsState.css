@@ -1,0 +1,12 @@
+.OptionsState_options ol {
+    display: flex;
+    flex-direction: column;
+}
+.OptionsState_options ol button {
+    width: 40%;
+    margin: auto;
+    padding: 12px;
+    text-align: center;
+    margin-top: 8px;
+    font-size: 24px;
+}

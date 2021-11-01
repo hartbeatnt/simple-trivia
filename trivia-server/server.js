@@ -18,6 +18,7 @@ app.use(express.json());
 const io = new Server(server, {
     cors: { origin: "http://localhost:3000" }
 })
+
 io.on('connection', (socket) => {
     console.log('a user connected');
     socket.on('join', (name) => {
@@ -37,8 +38,34 @@ io.on('connection', (socket) => {
         if (socket.id != game.host) return
         io.emit("state", "question", {
             index: game.currentQuestion, 
-            prompt: game.getCurrentPropmt
+            prompt: game.getCurrentPrompt()
         })
+    })
+    socket.on('options', () => {
+        if (socket.id != game.host) return
+        io.emit("state", "options", {
+            index: game.currentQuestion, 
+            prompt: game.getCurrentPrompt(),
+            options: game.getCurrentOptions()
+        })
+    })
+    socket.on('results', () => {
+        if (socket.id != game.host) return
+        io.sockets.forEach(socket => {
+            socket.emit("state", "results", {
+                index: game.currentQuestion, 
+                prompt: game.getCurrentPrompt(),
+                options: game.getCurrentOptions(),
+                answer: game.getCurrentAnswer(),
+                streak: game.players[socket.id].streak,
+            })
+        })
+        // io.emit("state", "results", {
+        //     index: game.currentQuestion, 
+        //     prompt: game.getCurrentPrompt(),
+        //     options: game.getCurrentOptions(),
+        //     answer: game.ge
+        // })
     })
 });
 

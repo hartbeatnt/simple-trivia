@@ -16,9 +16,9 @@ class Game {
         return false
     }
 
-    createPlayer(name, socketId) {
+    createPlayer(name, id) {
         let player = new Player(name)
-        this.players[socketId] = player
+        this.players[id] = player
         console.log(this.players)
     }
 
@@ -26,26 +26,25 @@ class Game {
         return Object.keys(this.players).map(id => this.players[id])
     }
 
-    getCurrentPropmt() {
-        return {
-            prompt: this.questions[this.currentQuestion].prompt,
-        }
+    getCurrentPrompt() {
+        return this.questions[this.currentQuestion].prompt
     }
 
     getCurrentOptions() {
-        return {
-            prompt: this.questions[this.currentQuestion].prompt,
-            options: this.questions[this.currentQuestion].options
-        }
+        return this.questions[this.currentQuestion].options;
     }
 
-    submitAnswer(playerId, question, answer) {
+    getCurrentAnswer() {
+        return this.questions[this.currentQuestion].answer;
+    }
+
+    submitAnswer(id, question, answer) {
         if (question !==  this.currentQuestion) { return }
         if (answer === this.questions[this.currentQuestion].answer) {
-            players[playerId].numCorrect += 1
-            players[playerId].streak += 1
+            players[id].numCorrect += 1
+            players[id].streak += 1
         } else {
-            players[playerId].streak = 0
+            players[id].streak = 0
         }
     }
 }

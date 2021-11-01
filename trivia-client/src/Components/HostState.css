@@ -1,0 +1,34 @@
+.HostState {
+    display: flex;
+    flex-direction: row;
+}
+
+.HostState_list {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin: auto;
+}
+
+.HostState_list button {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin: auto;
+    padding: 12px;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.HostState_list button:first-of-type {
+    margin-bottom: 24px;
+}
+
+.HostState_data {
+    color: wheat;
+    font-size: 24px;
+}
+
+.HostState_data ol {
+    text-align: left;
+}

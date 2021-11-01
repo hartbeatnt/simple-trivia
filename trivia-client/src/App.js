@@ -1,22 +1,24 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import io from "socket.io-client";
-import { AuthState, HostState, LobbyState, QuestionState } from './Components'
+import { AuthState, HostState, LobbyState, OptionsState, QuestionState } from './Components'
 
 const socket = io("http://localhost:1337", {
   withCredentials: false,
 })
 
-function Switch(state, data) {
+function Switch(isHost, state, data) {
+  if (isHost) return <HostState state={ state } data={ data } socket={ socket } />
   return {
     auth: <AuthState data={ data } socket={ socket } />,
-    host: <HostState data={ data } socket={ socket } />,
     lobby: <LobbyState data={ data } socket={ socket } />,
     question: <QuestionState data={ data } socket={ socket } />,
+    options: <OptionsState data={ data } socket={ socket } />
   }[state]
 }
 
 function App() {
+  const [isHost, setIsHost] = useState(false)
   const [state, setState] = useState(STATE.auth)
   const [data, setData] = useState(null)
 
@@ -29,6 +31,9 @@ function App() {
       console.log(state, data)
       setData(data)
       setState(state)
+      if (state === "host") {
+        setIsHost(true)
+      }
     });
     socket.on("data", (data) => {
       setData(data)
@@ -40,8 +45,7 @@ function App() {
       <header className="App-header">
         NLP Trivia
       </header>
-      <div className="App-body">
-        { Switch(state, data) }
+      <div className="App-body">{ Switch(isHost, state, data) }
       </div>
     </div>
   );
