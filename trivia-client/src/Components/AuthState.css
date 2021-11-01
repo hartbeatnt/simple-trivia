@@ -1,8 +1,14 @@
 .AuthState {
     color: wheat;
-    font-size: 24;
+    font-size: 24px;
 }
 
 .AuthState input {
     padding: 12px;
+    min-width: 162px;
+}
+
+.AuthState button {
+    padding: 12px;
+    min-width: 162px;
 }

@@ -1,14 +1,31 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import io from "socket.io-client";
 import AuthState from './Components/AuthState'
+
+const socket = io("http://localhost:1337", {
+  withCredentials: false,
+})
+
+function Switch(state) {
+  return {
+    auth: <AuthState socket={ socket } />
+  }[state]
+}
 
 function App() {
   const [state, setState] = useState(STATE.auth)
   const [user, setUser] = useState("")
 
-  const display = state => ({
-    auth: <AuthState />
-  }[state])
+
+  useEffect(() => {
+    socket.on("update", (res) => {
+      console.log(res)
+    });
+    socket.on("connect", () => {
+      console.log("socket connected", socket.id)
+    })
+  }, [])
   
   return (
     <div className="App">
@@ -16,7 +33,7 @@ function App() {
         NPL Trivia
       </header>
       <div className="App-body">
-        { display(state) }
+        { Switch(state) }
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import http from "http";
 import express from "express";
 import cors from "cors";
+import { Server } from "socket.io";
 import Game from "./Game.js"
 
 // initializations
@@ -8,11 +9,21 @@ const app = express();
 const server = http.createServer(app);
 const game = new Game();
 
+
 // middleware
-app.use(cors({ origin: process.env.CLIENT_URI }));
-app.get("/join", (req, res) => {
-    console.log(res.body)
+app.use(cors());
+app.use(express.json());
+
+// socket
+const io = new Server(server, {
+    cors: { origin: "http://localhost:3000" }
 })
+io.on('connection', (socket) => {
+    console.log('a user connected');
+    socket.on('join', (name) => {
+        game.createPlayer(name, socket.id)
+    })
+});
 
 // listen
 const port = 1337;
