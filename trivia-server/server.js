@@ -33,6 +33,13 @@ io.on('connection', (socket) => {
             io.emit("data", game.getPlayers())
         }
     })
+    socket.on('start', () => {
+        if (socket.id != game.host) return
+        io.emit("state", "question", {
+            index: game.currentQuestion, 
+            prompt: game.getCurrentPropmt
+        })
+    })
 });
 
 // listen

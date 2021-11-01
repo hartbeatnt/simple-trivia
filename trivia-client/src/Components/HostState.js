@@ -2,9 +2,14 @@ import "./HostState.css"
 
 function HostState(props) {
     const { socket } = props
+    const handleClick = () => {
+        props.socket.emit("start")
+    }
     return (
         <div className="HostState">
-            <button>start</button>
+            <button onClick={ handleClick }>
+                start
+            </button>
         </div>
     )
 }
