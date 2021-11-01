@@ -1,39 +1,46 @@
 import './App.css';
 import { useState, useEffect, useMemo } from 'react';
 import io from "socket.io-client";
-import AuthState from './Components/AuthState'
+import { AuthState, HostState, LobbyState } from './Components'
 
 const socket = io("http://localhost:1337", {
   withCredentials: false,
 })
 
-function Switch(state) {
+function Switch(state, data) {
   return {
-    auth: <AuthState socket={ socket } />
+    auth: <AuthState data={ data } socket={ socket } />,
+    host: <HostState data={ data } socket={ socket } />,
+    lobby: <LobbyState data={ data } socket={ socket } />
   }[state]
 }
 
 function App() {
   const [state, setState] = useState(STATE.auth)
-  const [user, setUser] = useState("")
+  const [data, setData] = useState(null)
 
 
   useEffect(() => {
-    socket.on("update", (res) => {
-      console.log(res)
-    });
     socket.on("connect", () => {
       console.log("socket connected", socket.id)
-    })
+    });
+    socket.on("state", (state, data) => {
+      console.log(state, data)
+      setData(data)
+      setState(state)
+    });
+    socket.on("data", (data) => {
+      setData(data)
+    });
   }, [])
   
   return (
     <div className="App">
       <header className="App-header">
-        NPL Trivia
+        NLP Trivia
       </header>
       <div className="App-body">
-        { Switch(state) }
+        { Switch(state, data) }
       </div>
     </div>
   );
@@ -46,7 +53,8 @@ const STATE = {
   options: "options",
   results: "results",
   scores: "scores",
-  done: "done"
+  done: "done",
+  host: "host"
 }
 
 export default App;

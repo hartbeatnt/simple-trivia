@@ -21,7 +21,17 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
     console.log('a user connected');
     socket.on('join', (name) => {
-        game.createPlayer(name, socket.id)
+        if (name === "host") {
+            if (game.addHost(socket.id)) {
+                socket.emit("state", "host", game.getPlayers())
+            } else {
+                socket.emit("error", "host")
+            }
+        } else {
+            game.createPlayer(name, socket.id)
+            socket.emit("state", "lobby", game.getPlayers())
+            io.emit("players", game.getPlayers())
+        }
     })
 });
 
