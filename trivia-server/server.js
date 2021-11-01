@@ -30,7 +30,7 @@ io.on('connection', (socket) => {
         } else {
             game.createPlayer(name, socket.id)
             socket.emit("state", "lobby", game.getPlayers())
-            io.emit("players", game.getPlayers())
+            io.emit("data", game.getPlayers())
         }
     })
 });
