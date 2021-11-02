@@ -43,7 +43,7 @@ io.on('connection', (socket) => {
         }
     })
     socket.on('submit', (question, answer) => {
-        console.log('player answered question:', { player: id, question, answer })
+        console.log('player answered question:', { player: socket.id, question, answer })
         game.submitAnswer(socket.id, question, answer)
     })
 
