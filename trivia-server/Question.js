@@ -6,7 +6,7 @@ class Question {
     }
 }
 
-export default [
+module.exports = [
     new Question(
         "According to midrash, how did the people of Noah's time plan to prepare for the great flood?",
         [

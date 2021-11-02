@@ -1,8 +1,9 @@
-import http from "http";
-import express from "express";
-import cors from "cors";
-import { Server } from "socket.io";
-import Game from "./Game.js"
+const http = require("http");
+const express = require("express");
+const cors = require("cors");
+const path = require("path");
+const Io = require("socket.io");
+const Game = require("./Game.js");
 
 // initializations
 const app = express();
@@ -13,9 +14,15 @@ const game = new Game();
 // middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "../trivia-client/build")));
+
+// routes
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, '../trivia-client/build', 'index.html'));
+});
 
 // socket
-const io = new Server(server, {
+const io = Io(server, {
     cors: { origin: "http://localhost:3000" }
 })
 
@@ -73,6 +80,16 @@ io.on('connection', (socket) => {
                 answer: game.getCurrentAnswer(),
                 streak: game.players[socket.id]?.streak,
             })
+        })
+    })
+    socket.on('next', () => {
+        if (game.currentQuestion + 1 >= game.questions.length) {
+            return
+        }
+        game.currentQuestion += 1
+        io.emit("state", "question", {
+            index: game.currentQuestion, 
+            prompt: game.getCurrentPrompt()
         })
     })
 });

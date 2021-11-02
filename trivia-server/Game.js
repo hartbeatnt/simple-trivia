@@ -1,4 +1,4 @@
-import questions from './Question.js';
+const questions = require('./Question.js');
 
 class Game {
     constructor() {
@@ -72,4 +72,4 @@ class Player {
     }
 }
 
-export default Game
+module.exports = Game

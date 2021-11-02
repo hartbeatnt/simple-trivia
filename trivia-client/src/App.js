@@ -29,7 +29,6 @@ function App() {
       console.log("socket connected", socket.id)
     });
     socket.on("state", (state, data) => {
-      console.log(state, data)
       setData(data)
       setState(state)
       if (state === "host") {

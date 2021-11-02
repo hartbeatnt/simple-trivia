@@ -1,6 +1,7 @@
 .ResultsState {
     padding-top: 48px;
     color: thistle;
+    padding-bottom: 50px;
 }
 
 .ResultsState div {
@@ -11,4 +12,10 @@
 .ResultsState p {
     font-size: 24px;
     padding: 24px;
+    padding-top: 0px;
+}
+
+.ResultsState_header {
+    color: wheat;
+    margin: 0;
 }

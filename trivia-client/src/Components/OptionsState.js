@@ -3,6 +3,7 @@ import "./OptionsState.css"
 import QuestionState from './QuestionState'
 
 function OptionsState(props) {
+    const options = props.data.options ?? {}
     const [submitted, setSubmitted] = useState()
 
     function submitAnswer(index) {
