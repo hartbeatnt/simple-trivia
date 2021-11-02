@@ -8,9 +8,9 @@ class Game {
         this.currentQuestion = 0
     }
 
-    addHost(socketId) {
+    addHost(id) {
         if (!this.host) {
-            this.host = socketId
+            this.host = id
             return true
         }
         return false
@@ -20,6 +20,16 @@ class Game {
         let player = new Player(name)
         this.players[id] = player
         console.log(this.players)
+    }
+
+    removePlayer(id) {
+        if (id === this.host) {
+            console.log('** host left')
+            this.host = null
+        } else {
+            delete this.players[id]
+            console.log('** player left')
+        }
     }
 
     getPlayers() {
@@ -39,12 +49,14 @@ class Game {
     }
 
     submitAnswer(id, question, answer) {
+        console.log(question, this.currentQuestion, answer, this.getCurrentAnswer())
         if (question !==  this.currentQuestion) { return }
         if (answer === this.questions[this.currentQuestion].answer) {
-            players[id].numCorrect += 1
-            players[id].streak += 1
+            this.players[id].numCorrect += 1
+            this.players[id].streak += 1
+            this.players[id].score += this.players[id].streak
         } else {
-            players[id].streak = 0
+            this.players[id].streak = 0
         }
     }
 }

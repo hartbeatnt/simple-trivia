@@ -27,8 +27,5 @@
 .HostState_data {
     color: wheat;
     font-size: 24px;
-}
-
-.HostState_data ol {
     text-align: left;
 }

@@ -20,7 +20,15 @@ const io = new Server(server, {
 })
 
 io.on('connection', (socket) => {
-    console.log('a user connected');
+    console.log('a user connected:', socket.id);
+
+    //
+    socket.on("disconnect", () => {
+        console.log('a user diconnected:', socket.id)
+        game.removePlayer(socket.id)
+    }),
+
+    // Client Functions
     socket.on('join', (name) => {
         if (name === "host") {
             if (game.addHost(socket.id)) {
@@ -34,6 +42,12 @@ io.on('connection', (socket) => {
             io.emit("data", game.getPlayers())
         }
     })
+    socket.on('submit', (question, answer) => {
+        console.log('player answered question:', { player: id, question, answer })
+        game.submitAnswer(socket.id, question, answer)
+    })
+
+    // Host functions
     socket.on('start', () => {
         if (socket.id != game.host) return
         io.emit("state", "question", {
@@ -51,21 +65,15 @@ io.on('connection', (socket) => {
     })
     socket.on('results', () => {
         if (socket.id != game.host) return
-        io.sockets.forEach(socket => {
+        io.sockets.sockets.forEach(socket => {
             socket.emit("state", "results", {
                 index: game.currentQuestion, 
                 prompt: game.getCurrentPrompt(),
                 options: game.getCurrentOptions(),
                 answer: game.getCurrentAnswer(),
-                streak: game.players[socket.id].streak,
+                streak: game.players[socket.id]?.streak,
             })
         })
-        // io.emit("state", "results", {
-        //     index: game.currentQuestion, 
-        //     prompt: game.getCurrentPrompt(),
-        //     options: game.getCurrentOptions(),
-        //     answer: game.ge
-        // })
     })
 });
 

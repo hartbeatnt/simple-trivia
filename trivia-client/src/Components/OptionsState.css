@@ -1,7 +1,14 @@
-.OptionsState_options ol {
+.OptionsState {
+    margin-top: 24px;
     display: flex;
     flex-direction: column;
 }
+
+.OptionsState_options {
+    color: wheat;
+    font-size: 24px;
+}
+
 .OptionsState_options ol button {
     width: 40%;
     margin: auto;

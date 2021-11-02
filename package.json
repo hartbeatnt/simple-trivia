@@ -5,5 +5,9 @@
     "nodemon": "^2.0.14",
     "socket.io": "^4.3.1"
   },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nodemon": "./node_modules/.bin/nodemon trivia-server/server.js"
+  },
   "type": "module"
 }

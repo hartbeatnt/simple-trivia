@@ -15,7 +15,7 @@ function HostState(props) {
                 }}> display options </button>
 
                 <button onClick={() => {
-                    props.socket.emit("result")
+                    props.socket.emit("results")
                 }}> show result </button>
 
                 <button onClick={() => {
@@ -27,12 +27,17 @@ function HostState(props) {
                 }}> show scores </button>
             </div>
             <div className="HostState_data">
-                { props.data.prompt }
+                {props.data.prompt}
                 <ol>
-                {
-                    props.data.options && props.data.options.map(option => <li>{ option }</li>)
-                }
+                    { props.data.options
+                        && props.data.options.map(option => (
+                            <li>{option}</li>)
+                        )
+                    }
                 </ol>
+                { props.data.options && !isNaN(props.data.answer)
+                    && <p>{ props.data.options[props.data.answer] }</p>
+                }
             </div>
         </div>
     )

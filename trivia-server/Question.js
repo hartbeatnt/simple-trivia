@@ -16,5 +16,27 @@ export default [
             "Create an elaborate network of interconnected rafts"
         ],
         0
+    ),
+    new Question(
+        "In September 2021, Governor Newsom signed a climate package worth how many dollars?",
+        [
+            "$150 Million",
+            "$2.2 Billion",
+            "$15 Billion",
+            "$22 Billion"
+        ],
+        2
     )
 ]
+/*
+new Question(
+    "",
+    [
+        "",
+        "",
+        "",
+        ""
+    ],
+    -1
+)
+*/
