@@ -49,7 +49,8 @@ class Game {
     }
 
     submitAnswer(id, question, answer) {
-        console.log(question, this.currentQuestion, answer, this.getCurrentAnswer())
+        console.log(id, question, this.currentQuestion, answer, this.getCurrentAnswer())
+        if (!this.players[id]) { return }
         if (question !==  this.currentQuestion) { return }
         if (answer === this.questions[this.currentQuestion].answer) {
             this.players[id].numCorrect += 1

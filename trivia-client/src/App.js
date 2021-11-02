@@ -1,7 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import io from "socket.io-client";
-import { AuthState, HostState, LobbyState, OptionsState, QuestionState } from './Components'
+import { AuthState, HostState, LobbyState, OptionsState, QuestionState, ResultsSate } from './Components'
 
 const socket = io("http://localhost:1337", {
   withCredentials: false,
@@ -13,7 +13,8 @@ function Switch(isHost, state, data) {
     auth: <AuthState data={ data } socket={ socket } />,
     lobby: <LobbyState data={ data } socket={ socket } />,
     question: <QuestionState data={ data } socket={ socket } />,
-    options: <OptionsState data={ data } socket={ socket } />
+    options: <OptionsState data={ data } socket={ socket } />,
+    results: <ResultsSate data={ data } socket={ socket } />,
   }[state]
 }
 

@@ -3,7 +3,7 @@ import "./OptionsState.css"
 import QuestionState from './QuestionState'
 
 function OptionsState(props) {
-    const [submitted, setSubmitted] = useState(null)
+    const [submitted, setSubmitted] = useState()
 
     function submitAnswer(index) {
         setSubmitted(index)
@@ -14,7 +14,7 @@ function OptionsState(props) {
         <div className="OptionsState">
             <QuestionState  data={ props.data} socket={ props.socket } />
             <div className="OptionsState_options">
-                {submitted
+                {!isNaN(submitted)
                     ? <p>{ `You guessed "${ props.data.options[submitted] }"` }</p>
                     : (<ol> {
                             props.data.options && props.data.options.map((option, index) => (

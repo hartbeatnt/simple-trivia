@@ -1,0 +1,14 @@
+.ResultsState {
+    padding-top: 48px;
+    color: thistle;
+}
+
+.ResultsState div {
+    margin: auto;
+    font-size: 64px;
+}
+
+.ResultsState p {
+    font-size: 24px;
+    padding: 24px;
+}

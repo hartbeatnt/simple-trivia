@@ -28,7 +28,7 @@ function HostState(props) {
             </div>
             <div className="HostState_data">
                 {props.data.prompt}
-                <ol>
+                <ol type="A">
                     { props.data.options
                         && props.data.options.map(option => (
                             <li>{option}</li>)
