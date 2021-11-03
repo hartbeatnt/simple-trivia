@@ -13,7 +13,7 @@
 .HostState_list button {
     display: flex;
     flex-direction: column;
-    width: 40%;
+    width: 33%;
     margin: auto;
     padding: 12px;
     text-align: center;
@@ -28,4 +28,6 @@
     color: wheat;
     font-size: 24px;
     text-align: left;
+    border: 1px solid white;
+    width: 66%;
 }

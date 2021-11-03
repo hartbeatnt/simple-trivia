@@ -1,0 +1,15 @@
+.ScoreBoardState {
+    color: wheat;
+}
+
+.ScoreBoardState table {
+    margin: auto;
+}
+
+.ScoreBoardState tr:first-child {
+    height: 56px;
+}
+
+.ScoreBoardState td {
+    width: 92px;
+}

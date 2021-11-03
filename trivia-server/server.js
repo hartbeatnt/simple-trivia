@@ -92,6 +92,9 @@ io.on('connection', (socket) => {
             prompt: game.getCurrentPrompt()
         })
     })
+    socket.on('scores', () => {
+        io.emit("state", "scores", game.getPlayers().sort((a,b) => b.score - a.score))
+    })
 });
 
 // listen

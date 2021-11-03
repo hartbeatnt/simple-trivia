@@ -10,6 +10,11 @@
     display: flex;
 }
 
+.OptionsState p {
+    padding-top: 48px;
+    margin: auto;
+}
+
 .OptionsState_options div {
     flex-direction: column;
     margin-top: 40px;

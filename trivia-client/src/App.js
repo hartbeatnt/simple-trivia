@@ -1,20 +1,22 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import io from "socket.io-client";
-import { AuthState, HostState, LobbyState, OptionsState, QuestionState, ResultsSate } from './Components'
+import { AuthState, HostState, LobbyState, OptionsState, QuestionState, ResultsSate, ScoreBoardState } from './Components'
 
 const socket = io("http://localhost:1337", {
   withCredentials: false,
 })
 
 function Switch(isHost, state, data) {
-  if (isHost) return <HostState state={ state } data={ data } socket={ socket } />
+  const withDataAndSocket = (Component, props) => <Component data={ data } socket={ socket } { ...props } />
+  if (isHost) return withDataAndSocket(HostState, { state: state })
   return {
-    auth: <AuthState data={ data } socket={ socket } />,
-    lobby: <LobbyState data={ data } socket={ socket } />,
-    question: <QuestionState data={ data } socket={ socket } />,
-    options: <OptionsState data={ data } socket={ socket } />,
-    results: <ResultsSate data={ data } socket={ socket } />,
+    auth: withDataAndSocket(AuthState),
+    lobby: withDataAndSocket(LobbyState),
+    question: withDataAndSocket(QuestionState),
+    options: withDataAndSocket(OptionsState),
+    results: withDataAndSocket(ResultsSate),
+    scores: withDataAndSocket(ScoreBoardState)
   }[state]
 }
 
@@ -27,6 +29,9 @@ function App() {
   useEffect(() => {
     socket.on("connect", () => {
       console.log("socket connected", socket.id)
+    });
+    socket.on("disconnect", () => {
+      console.log("socket disconnected", socket.id)
     });
     socket.on("state", (state, data) => {
       setData(data)

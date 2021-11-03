@@ -1,4 +1,5 @@
 import "./HostState.css"
+import ScoreBoardSate from './ScoreBoardState'
 
 function HostState(props) {
     const { socket, state, data } = props
@@ -37,6 +38,9 @@ function HostState(props) {
                 </ol>
                 { props.data.options && !isNaN(props.data.answer)
                     && <p>{ props.data.options[props.data.answer] }</p>
+                }
+                { Array.isArray(props.data) 
+                    && <ScoreBoardSate data={ props.data} socket={ props.socket } />
                 }
             </div>
         </div>

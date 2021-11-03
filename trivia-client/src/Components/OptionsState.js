@@ -16,7 +16,7 @@ function OptionsState(props) {
             <QuestionState  data={ props.data} socket={ props.socket } />
             <div className="OptionsState_options">
                 {!isNaN(submitted)
-                    ? <p>{ `You guessed "${ props.data.options[submitted] }"` }</p>
+                    ? <p>{ `You guessed "${ options[submitted] }"` }</p>
                     : (<div> {
                             props.data.options && props.data.options.map((option, index) => (
                                 <button onClick={ () => submitAnswer(index) }>

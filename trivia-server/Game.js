@@ -19,16 +19,13 @@ class Game {
     createPlayer(name, id) {
         let player = new Player(name)
         this.players[id] = player
-        console.log(this.players)
     }
 
     removePlayer(id) {
         if (id === this.host) {
-            console.log('** host left')
             this.host = null
         } else {
             delete this.players[id]
-            console.log('** player left')
         }
     }
 
@@ -49,14 +46,17 @@ class Game {
     }
 
     submitAnswer(id, question, answer) {
-        console.log(id, question, this.currentQuestion, answer, this.getCurrentAnswer())
         if (!this.players[id]) { return }
         if (question !==  this.currentQuestion) { return }
         if (answer === this.questions[this.currentQuestion].answer) {
+            this.players[id].score += 1
             this.players[id].numCorrect += 1
             this.players[id].streak += 1
-            this.players[id].score += this.players[id].streak
+            if (this.players[id].streak > this.players[id].longestStreak) {
+                this.players[id].longestStreak = this.players[id].streak
+            }
         } else {
+            this.players[id].score -= 0.2
             this.players[id].streak = 0
         }
     }
@@ -68,7 +68,7 @@ class Player {
         this.score = 0
         this.numCorrect = 0
         this.streak = 0
-
+        this.longestStreak = 0
     }
 }
 

@@ -4,6 +4,7 @@ import LobbyState from './LobbyState'
 import QuestionState from './QuestionState'
 import OptionsState from './OptionsState'
 import ResultsSate from './ResultsState'
+import ScoreBoardState from './ScoreBoardState'
 
 export {
     AuthState,
@@ -11,5 +12,6 @@ export {
     LobbyState,
     QuestionState,
     OptionsState,
-    ResultsSate
+    ResultsSate,
+    ScoreBoardState
 }
