@@ -22,9 +22,7 @@ app.get('/', function (req, res) {
 });
 
 // socket
-const io = Io(server, {
-    cors: { origin: "http://localhost:3000" }
-})
+const io = Io(server)
 
 io.on('connection', (socket) => {
     console.log('a user connected:', socket.id);

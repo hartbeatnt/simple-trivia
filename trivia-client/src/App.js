@@ -3,9 +3,7 @@ import { useState, useEffect } from 'react';
 import io from "socket.io-client";
 import { AuthState, HostState, LobbyState, OptionsState, QuestionState, ResultsSate, ScoreBoardState } from './Components'
 
-const socket = io("http://localhost:1337", {
-  withCredentials: false,
-})
+const socket = io()
 
 function Switch(isHost, state, data) {
   const withDataAndSocket = (Component, props) => <Component data={ data } socket={ socket } { ...props } />
