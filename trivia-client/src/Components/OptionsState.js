@@ -17,14 +17,14 @@ function OptionsState(props) {
             <div className="OptionsState_options">
                 {!isNaN(submitted)
                     ? <p>{ `You guessed "${ props.data.options[submitted] }"` }</p>
-                    : (<ol> {
+                    : (<div> {
                             props.data.options && props.data.options.map((option, index) => (
                                 <button onClick={ () => submitAnswer(index) }>
                                     { `${ alphabet[index] } - ${ option }` }
                                 </button>
                             ))
                         }
-                        </ol>
+                        </div>
                     )
                 }
             </div>

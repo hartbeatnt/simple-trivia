@@ -7,13 +7,22 @@
 .OptionsState_options {
     color: wheat;
     font-size: 24px;
+    display: flex;
 }
 
-.OptionsState_options ol button {
-    width: 40%;
+.OptionsState_options div {
+    flex-direction: column;
+    margin-top: 40px;
+}
+
+.OptionsState_options div button {
+    width: 80%;
     margin: auto;
     padding: 12px;
+    padding-top: 24px;
+    padding-bottom: 24px;
     text-align: center;
-    margin-top: 8px;
+    margin-top: 24px;
     font-size: 24px;
+
 }
